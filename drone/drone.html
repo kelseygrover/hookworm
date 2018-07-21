@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Drone Strike</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <style>
+        body {
+            
+            background-size: 100%;
+        }
+        #map {
+            height: 400px;
+            width: 80%;
+            margin: auto;    
+            opacity: .8;  
+        }
+        #center-map {
+            margin: 6%;
+            text-align: center;
+            margin-top: 10px;
+        }
+        #add-data {
+            margin-bottom: 5px;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container"></div>
+                <h1 class="display-4 text-center">Drone Strike Database</h1>
+                <p class="lead text-center">Displays Info From All Recorded US Drone Strikes</p>
+            </div>
+        </div>
+        <div class="container">
+            <!--User Date Input-->
+                <div class="row">
+                <div class="col-md-6">
+                    <form id = "data form">
+                    <div class="form-group">
+                        <label for="startDate" class="date text">Start Date (MMDDYYY)</label>
+                        <input type="date" class="form-control" id="startDate" placeholder="Input Your Query Start Date Here">
+                    </div>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <form id = "data form">
+                    <div class="form-group">
+                        <label for="endDate" class="date text">End Date (MMDDYYY)</label>
+                        <input type="date" class="form-control" id="endDate" placeholder="Input Your Query End Date Here">
+                    </div>
+                    </form>
+                </div>
+            </div>
+            <!--Buttons-->
+            <div class="row">
+                <div class="col-md-6">
+                    <input class="btn btn-secondary" id="add-data" type="submit" value="Submit">
+                </div>
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">
+                        More Info
+                    </button>
+                </div>
+                <div class="col-md-5">
+
+                    <p>&larr; Click Here for More Info After Choosing a Strike Below </p>
+                   
+                </div>
+            </div>
+            <!-- loading text goes here -->
+            <div style="text-align: center;">
+                <h4 class="lead" id="loading"></h4>
+            </div>
+            <!--Modal text box-->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title">Strike Details:</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="modal-info"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="modal-footer">
+                            <button type="button" id="close" class="btn btn-secondary" data-dismiss="modal">Clear</button>                            
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!--Map-->
+        <div class="row">
+        </div>
+        <div class="row" id="center-map">
+            <div id="map">   
+            </div>
+        </div>
+</div>
+<div id="myDiv"><!-- Plotly chart will be drawn inside this DIV --></div>
+  
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBe-qYGZoJptR5xKEkJpid9mb1ilx3UCE&callback=initMap"
+    async defer></script>
+    <script src="./main.js"></script>
+</body>
+
+</html>

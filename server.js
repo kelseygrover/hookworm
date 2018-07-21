@@ -31,8 +31,8 @@ app.get("/", function(req, res) {
   res.sendFile(path.join(__dirname, "view.html"));
 });
 
-app.get("/add", function(req, res) {
-  res.sendFile(path.join(__dirname, "add.html"));
+app.get("/drone/drone", function(req, res) {
+  res.sendFile(path.join(__dirname, "/drone/drone.html"));
 });
 
 app.get("/all", function(req, res) {
