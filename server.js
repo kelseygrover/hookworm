@@ -7,8 +7,9 @@ var path = require("path");
 // Sets up the Express App
 // =============================================================
 var app = express();
-var PORT = process.env.PORT || 3000;
 
+var PORT = process.env.PORT || 3000;
+app.use(express.static('public'));
 // Sets up the Express app to handle data parsing
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -35,8 +36,8 @@ app.get("/drone/drone", function(req, res) {
   res.sendFile(path.join(__dirname, "/drone/drone.html"));
 });
 
-app.get("/all", function(req, res) {
-  res.sendFile(path.join(__dirname, "all.html"));
+app.get("/congressional", function(req, res) {
+  res.sendFile(path.join(__dirname, "/districts/congressional.html"));
 });
 
 // Displays all waitlist
