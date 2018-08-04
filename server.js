@@ -32,12 +32,16 @@ app.get("/", function(req, res) {
   res.sendFile(path.join(__dirname, "view.html"));
 });
 
-app.get("/drone/drone", function(req, res) {
-  res.sendFile(path.join(__dirname, "/drone/drone.html"));
+app.get("/drone", function(req, res) {
+  res.sendFile(path.join(__dirname, "apps/drone/drone.html"));
 });
 
 app.get("/congressional", function(req, res) {
-  res.sendFile(path.join(__dirname, "/districts/congressional.html"));
+  res.sendFile(path.join(__dirname, "/apps/districts/congressional.html"));
+});
+
+app.get("/tennessee", function(req, res) {
+  res.sendFile(path.join(__dirname, "/apps/tennessee/vols.html"));
 });
 
 // Displays all waitlist
