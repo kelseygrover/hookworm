@@ -38,12 +38,36 @@
     </style>
 </head>
 <body>
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container"></div>
-                <h1 class="display-4 text-center">Drone Strike Database</h1>
-                <p class="lead text-center">This application displays info between two dates of all reported U.S. drone strikes. The U.S. discontinued strike latitude and longitude coordinates starting in late 2017. All strikes locations between those dates have been geocoded based on the given strike city. </p>
+        <header>
+                <div class="navbar navbar-dark bg-dark box-shadow">
+                  <div class="container d-flex justify-content-between">
+                    <a  class="navbar-brand d-flex align-items-center">
+              
+                      <strong class = "text-white">Kelsey J. Grover</strong>
+                    </a>
+                    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
+                       aria-controls="navbarHeader" aria-expanded="true" aria-label="Toggle navigation">
+                    -->
+                    <a href="/" style="text-decoration:none;"><span></span><strong class = "text-white">Home</strong> </a>
+                      <!-- <span class="navbar-toggler-icon"></span> -->
+                    </button>
+                  </div>
+                </div>
+              </header>
+    
+
+        <section class="jumbotron text-center">
+            <div class="container">
+              <h1 class="jumbotron-heading">Drone Strike Database</h1>
+              <p class="lead text-muted">This application displays U.S. drone strike info between two querying dates entered below. The drone strike data was 
+                  sourced from <a href = "api.dronestre.am/data" target="_blank">dronestre.am</a> and visualized with Google Maps and D3.js. The U.S. 
+                  discontinued reports on strike latitude and longitude coordinates starting in late 2017. All strikes locations between those dates have been
+                   geocoded based on the given strike city using <a href = "https://nominatim.openstreetmap.org" target="_blank">Nominatim</a>.</p>
             </div>
-        </div>
+          </section>
+
+
+
         <div class="container">
             <!--User Date Input-->
                 <div class="row">
@@ -178,7 +202,7 @@ function geoToo(x, state, func){
 }
 
 //This is the drone strike API
-var queryURL =  "api.dronestre.am/data "
+var queryURL =  "api.dronestre.am/data"
 
 //these are empty arrays awaiting data to be pushed by the API
     var locations = [];
