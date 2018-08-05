@@ -44,6 +44,10 @@ app.get("/tennessee", function(req, res) {
   res.sendFile(path.join(__dirname, "/apps/tennessee/vols.html"));
 });
 
+app.get("/ny", function(req, res) {
+  res.sendFile(path.join(__dirname, "/apps/newYork/NY.html"));
+});
+
 // Displays all waitlist
 app.get("/api/waitlist", function(req, res) {
     return res.json(waitlist);
