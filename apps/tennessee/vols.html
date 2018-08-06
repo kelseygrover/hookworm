@@ -5,7 +5,7 @@
     <title>Tennessee Volunteers Dashboard</title>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="https://d3js.org/d3.v2.js"></script>
+	<script src="http://d3js.org/d3.v2.js"></script>
 	<script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -60,29 +60,76 @@
     </style>
   </head>
   <body>
-  <div class = "jumbotron">
+    <header>
+      <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-between">
+          <a  class="navbar-brand d-flex align-items-center">
+    
+            <strong class = "text-white">Kelsey J. Grover</strong>
+          </a>
+          <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
+             aria-controls="navbarHeader" aria-expanded="true" aria-label="Toggle navigation">
+          -->
+          <a href="/" style="text-decoration:none;"><span></span><strong class = "text-white">Home</strong> </a>
+            <!-- <span class="navbar-toggler-icon"></span> -->
+          </button>
+        </div>
+      </div>
+    </header>
 
-      <!-- <div id="modal01" class="modal"></div>
-      
+  <section class="jumbotron text-center">
+      <div class="container">
+        <h1 class="jumbotron-heading">Tennessee Football Dashboard</h1>
+        <p class="lead text-muted">The football data below was sourced from <a href = "https://catalog.data.gov/dataset?tags=firearms" target="_blank">HERE</a>
+      </p>
+      </div>
+    </section>
+    
+    <div class="container">
+    	  <div class = "row">
 
-      <div id="box" class="modal-box"></div> -->
-  </div>
-  <div class = "container">
+        <div class = "col-xl-4 text-center">
+         <h2>Total Wins: 808</h2>
+        </div>
+
+        <div class = "col-xl-4 text-center">
+            <h2>Total Losses: 365</h2>
+           </div>
+
+           <div class = "col-xl-4 text-center">
+              <h2>Total Ties: 2</h2>
+             </div>
+    
+        
+     
+      </div>
+    </div>
+
+    <hr>
+ 
 	  <div class = "row">
+
+      	<div class = "col-xl-1">
+		
+		</div>
 
 		<div class = "col-xl-5 show-image text-center">
 			<div id="pieChart"></div>
 		</div>
-		<div class = "col-xl-2">
-			<div></div>
-		</div>
+		<!-- <div class = "col-xl-2">
+		
+		</div> -->
 		<div class = "col-xl-5 show-image text-center">
 			<div id="bubbleChart"></div>
-		</div>
+    </div>
+    
+    <div class = "col-xl-1">
+		
+      </div>
   </div>
   
  
-  </div>
+ 
   
 
   <div class = "container">
@@ -235,7 +282,7 @@ function dsPieChart(){
 			
    
    // for animation
-   var arcFinal = d3.svg.arc().innerRadius(innerRadiusFinal).outerRadius(outerRadius);
+  var arcFinal = d3.svg.arc().innerRadius(innerRadiusFinal).outerRadius(outerRadius);
 	var arcFinal3 = d3.svg.arc().innerRadius(innerRadiusFinal3).outerRadius(outerRadius);
 
    var pie = d3.layout.pie()           //this will create arc data for us given a list of values
@@ -244,18 +291,18 @@ function dsPieChart(){
    var arcs = vis.selectAll("g.slice")     //this selects all <g> elements with class slice (there aren't any yet)
         .data(pie)                          //associate the generated pie data (an array of arcs, each having startAngle, endAngle and value properties) 
         .enter()                            //this will create <g> elements for every "extra" data element that should be associated with a selection. The result is creating a <g> for every object in the data array
-            .append("svg:g")                //create a group to hold each slice (we will have a <path> and a <text> element associated with each slice)
-               .attr("class", "slice")    //allow us to style things in the slices (like text)
-               .on("mouseover", mouseover)
-    				.on("mouseout", mouseout)
-    				.on("click", up)
+        .append("svg:g")                //create a group to hold each slice (we will have a <path> and a <text> element associated with each slice)
+        .attr("class", "slice")    //allow us to style things in the slices (like text)
+            //    .on("mouseover", mouseover)
+    				// .on("mouseout", mouseout)
+    				// .on("click", up)
     				;
     				
         arcs.append("svg:path")
                .attr("fill", function(d, i) { return color(i); } ) //set the color for each slice to be chosen from the color function defined above
                .attr("d", arc)     //this creates the actual SVG path using the associated data (pie) with the arc drawing function
 					.append("svg:title") //mouseover title showing the figures
-				   .text(function(d) { return d.data.category + ": " + formatAsPercentage(d.data.measure); });			
+				   .text(function(d) { return d.data.category + ": " + formatAsPercentage1Dec(d.data.measure); });			
 
         d3.selectAll("g.slice").selectAll("path").transition()
 			    .duration(750)
@@ -291,37 +338,37 @@ function dsPieChart(){
 
 
 		
-	function mouseover() {
-	  d3.select(this).select("path").transition()
-	      .duration(750)
-	        		//.attr("stroke","red")
-	        		//.attr("stroke-width", 1.5)
-	        		.attr("d", arcFinal3)
-	        		;
-	}
+	// function mouseover() {
+	//   d3.select(this).select("path").transition()
+	//       .duration(750)
+	//         		//.attr("stroke","red")
+	//         		//.attr("stroke-width", 1.5)
+	//         		.attr("d", arcFinal3)
+	//         		;
+	// }
 	
-	function mouseout() {
-	  d3.select(this).select("path").transition()
-	      .duration(750)
-	        		//.attr("stroke","blue")
-	        		//.attr("stroke-width", 1.5)
-	        		.attr("d", arcFinal)
-	        		;
-	}
+	// function mouseout() {
+	//   d3.select(this).select("path").transition()
+	//       .duration(750)
+	//         		//.attr("stroke","blue")
+	//         		//.attr("stroke-width", 1.5)
+	//         		.attr("d", arcFinal)
+	//         		;
+	// }
 	
-	function up() {
+	// function up() {
   
-  $("#modal01").empty();
-  $("#modal01").append("d");
-  $("#modal01").show();
-  $("#box").show();
+  // $("#modal01").empty();
+  // $("#modal01").append("d");
+  // $("#modal01").show();
+  // $("#box").show();
 
-    /* update bar chart when user selects piece of the pie chart */
-				//updateBarChart(dataset[i].category);
-				// updateBarChart(d.data.category, color(i));
-				// updateLineChart(d.data.category, color(i));
+  //   /* update bar chart when user selects piece of the pie chart */
+	// 			//updateBarChart(dataset[i].category);
+	// 			// updateBarChart(d.data.category, color(i));
+	// 			// updateLineChart(d.data.category, color(i));
 			 
-	}
+	// }
 }
 
 dsPieChart();
@@ -423,13 +470,14 @@ dsPieChart();
 
         var bubble = d3.pack(datasetTwo)
             .size([diameter, diameter])
-            .padding(1.5);
+            .padding(1.5)
 
         var svg = d3.select("#bubbleChart")
             .append("svg")
             .attr("width", diameter)
             .attr("height", diameter)
             .attr("class", "bubble");
+            
 
         var nodes = d3.hierarchy(datasetTwo)
             .sum(function(d) { return d.Count; });
@@ -448,7 +496,7 @@ dsPieChart();
 
         node.append("title")
             .text(function(d) {
-                return d.Name + ": " + d.Count;
+                return d.data.Name + ": " + d.data.Count;
             });
 
         node.append("circle")
@@ -485,6 +533,16 @@ dsPieChart();
 
         d3.select(self.frameElement)
             .style("height", diameter + "px");
+
+            	// Pie chart title			
+		svg.append("svg:text")
+	     	.attr("dy", ".9em")
+        .attr("text-anchor", "start")
+        .attr("x", 80)//padding of 4px
+        .attr("y", 20)
+	      .text("Average Number of Wins Per Season by Coach")
+	      .attr("class","title")
+	      ;		   
 
 
     </script>
