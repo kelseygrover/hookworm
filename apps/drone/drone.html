@@ -59,11 +59,11 @@
         <section class="jumbotron text-center">
             <div class="container">
               <h1 class="jumbotron-heading">Drone Strike Database</h1>
-              <p class="lead text-muted">This application displays U.S. drone strike info between two querying dates entered below. The drone strike data 
+              <p class="lead text-muted">Please enter two dates below and click on the "More Info" button after choosing a strike to learn more. The drone strike data 
                   is sourced dynamically via an AJAX call to <a href = "api.dronestre.am/data" target="_blank">dronestre.am</a> and visualized with Google Maps and D3.js. The U.S. 
                   discontinued reports on strike latitude and longitude coordinates starting in late 2017. All drone strikes missing location data have been
                    geocoded based on the given strike city using <a href = "https://nominatim.openstreetmap.org" target="_blank">Nominatim</a> to find their 
-                   latitude and longitude.</p>
+                   latitude and longitude. The source code can be found on my <a href = "https://github.com/kjgrover/droneStrike" target="_blank">Github</a></p>
             </div>
           </section>
 
@@ -100,8 +100,6 @@
                     </button>
                 </div>
                 <div class="col-md-5">
-
-                    <p>  &larr; Click Here for More Info After Choosing a Strike Below </p>
                    
                 </div>
             </div>
@@ -138,7 +136,6 @@
             <div id="map">   
             </div>
         </div>
-</div>
 <div id="myDiv"></div>
 
 <div id="barDiv"></div>
