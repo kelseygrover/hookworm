@@ -59,10 +59,11 @@
         <section class="jumbotron text-center">
             <div class="container">
               <h1 class="jumbotron-heading">Drone Strike Database</h1>
-              <p class="lead text-muted">This application displays U.S. drone strike info between two querying dates entered below. The drone strike data was 
-                  sourced from <a href = "api.dronestre.am/data" target="_blank">dronestre.am</a> and visualized with Google Maps and D3.js. The U.S. 
-                  discontinued reports on strike latitude and longitude coordinates starting in late 2017. All strikes locations between those dates have been
-                   geocoded based on the given strike city using <a href = "https://nominatim.openstreetmap.org" target="_blank">Nominatim</a>.</p>
+              <p class="lead text-muted">This application displays U.S. drone strike info between two querying dates entered below. The drone strike data 
+                  is sourced dynamically via an AJAX call to <a href = "api.dronestre.am/data" target="_blank">dronestre.am</a> and visualized with Google Maps and D3.js. The U.S. 
+                  discontinued reports on strike latitude and longitude coordinates starting in late 2017. All drone strikes missing location data have been
+                   geocoded based on the given strike city using <a href = "https://nominatim.openstreetmap.org" target="_blank">Nominatim</a> to find their 
+                   latitude and longitude.</p>
             </div>
           </section>
 
@@ -138,7 +139,9 @@
             </div>
         </div>
 </div>
-<div id="myDiv"><!-- Plotly chart will be drawn inside this DIV --></div>
+<div id="myDiv"></div>
+
+<div id="barDiv"></div>
   
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbifTIaCooaWo_icT1pPf3LbVK6HJMvFM&callback=initMap"
     async defer></script>
@@ -215,6 +218,8 @@ var queryURL =  "api.dronestre.am/data"
     var latArray = [];
     var number = [];
     var injury = [];
+    var children = [];
+    var civilians = [];
 
     var trace = {
         x: [],
@@ -237,6 +242,19 @@ var queryURL =  "api.dronestre.am/data"
         
     lonArray = [];
     latArray = [];
+    locations = [];
+    places = [];
+    country = [];
+    narrative = [];
+    killed = [];
+    link = [];
+    number = [];
+    injury = [];
+    trace.x = [];
+    trace.y = [];
+    trace.text = [];
+    children = [];
+    civilians = [];
     event.preventDefault();
 
 //This is cleaning up the user inputed dates so that it can be used to query dronestr.am
@@ -274,6 +292,8 @@ var queryURL =  "api.dronestre.am/data"
         var droneNumber = parseInt(data.strike[n].number)
         var droneDate = data.strike[n].date;
         var droneInjury = data.strike[n].injuries;
+        var droneChildren = data.strike[n].children;
+        var droneCivilian = data.strike[n].civilians;
 
         //this if statement finds data between the two inputed dates and pushes the selected data to the empty arrays made above
         if (dateSliceToo>=userBegin && dateSliceToo<=userEnd) {
@@ -290,7 +310,10 @@ var queryURL =  "api.dronestre.am/data"
             injury.push([droneInjury])
             trace.x.push(droneDate);
             trace.y.push(droneDeath);
-            trace.text.push(droneCountry)
+            trace.text.push(droneCountry);
+            children.push(droneChildren);
+            civilians.push(droneCivilian);
+            
 
         }
     } 
@@ -365,9 +388,20 @@ var queryURL =  "api.dronestre.am/data"
         console.log("this is number of bombs "+number)
         console.log("this is the number killed "+killed)
     
-
+    var layout = {
+        title: 'Deaths Versus Time',
+        xaxis: {
+        title: 'Date',
+        showgrid: false,
+        zeroline: false
+        },
+        yaxis: {
+        title: 'Number of Deaths',
+        showline: false
+        }
+    };
     var data = [trace];
-    Plotly.newPlot('myDiv', data);
+    Plotly.newPlot('myDiv', data, layout);
 
         //starts auto zoom
         bounds  = new google.maps.LatLngBounds();
