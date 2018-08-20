@@ -2,18 +2,55 @@
 <html lang="en-us">
   <head>
     <meta charset="UTF-8">
-    <title>Animals</title>
+    <title>News Scraper</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <!-- <link rel="stylesheet" href="style.css"> -->
   </head>
-  <body>
-    <div id="buttons">
-      <button id="button">Press To Scrape</button>
+  <header>
+    <div class="navbar navbar-dark bg-dark box-shadow">
+      <div class="container d-flex justify-content-between">
+        <a  class="navbar-brand d-flex align-items-center">
   
+          <strong class = "text-white">Kelsey J. Grover</strong>
+        </a>
+        <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
+           aria-controls="navbarHeader" aria-expanded="true" aria-label="Toggle navigation">
+        -->
+        <a href="/" style="text-decoration:none;"><span></span><strong class = "text-white">Home</strong> </a>
+          <!-- <span class="navbar-toggler-icon"></span> -->
+        </button>
+      </div>
     </div>
-    <div id="wordcloud"></div>
+  </header>
+  
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">News Headline Scraper</h1>
+      <p class="lead text-muted">This project utilizes <a href = "https://cheerio.js.org/" target="_blank">Cheerio</a> to scrape headlines from Fox News' home page.
+         The headline data is cleaned using Node.js and visualized using a D3-based word cloud plugin created by <a href = "https://github.com/wvengen/d3-wordcloud" target="_blank">Jason Davies</a>
+         that is used to create a beautiful word cloud of all current Fox News headlines. The code to this project can be found on my <a href = "https://github.com/kjgrover/newsCloud" target="_blank">Github</a>.
+    </p>
+    </div>
+  </section>
+
+  <body>
+    <div class = "text-center">
+        <div id="buttons">
+            <button id="button" class="btn btn-secondary">Press To Scrape Fox News</button>
+        </div>
+    </div>
+
+    <div class = "text-center">
+            <div id="wordcloud"></div>
+    </div>
+
+
     <script type="text/javascript" src="/public/apps/newsScraper/app.js"></script>
     <script src="/public/apps/newsScraper/D3.js" charset="utf-8"></script>
     <script src="/public/apps/newsScraper/D3.layout.cloud.js"></script>
     <script src="/public/apps/newsScraper/D3.wordcloud.js"></script>
   </body>
+</html>

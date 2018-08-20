@@ -27,7 +27,7 @@ app.get("/tariffs", function(req, res) {
   res.sendFile(path.join(__dirname, "../public/apps/tariffs/tariffs.html"));
 });
 
-app.get("/newsScraper", function(req, res) {
+app.get("/scraper", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/apps/newsScraper/index.html"));
   });
 

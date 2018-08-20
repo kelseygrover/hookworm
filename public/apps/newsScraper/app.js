@@ -59,7 +59,7 @@ for (i= 0; i<cloudWords.length; i++){
 console.log(wordDisplay)
     
 d3.wordcloud()
-.size([800, 400])
+.size([1200, 600])
 .selector('#wordcloud')
 .words(wordDisplay)
 .start();
