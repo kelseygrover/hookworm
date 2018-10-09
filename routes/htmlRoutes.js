@@ -31,4 +31,8 @@ app.get("/scraper", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/apps/newsScraper/index.html"));
   });
 
+app.get("/trivia", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/apps/trivia/index.html"));
+  });
+
 };

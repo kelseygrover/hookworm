@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta charset="UTF-8">
+  <title>Trivia!</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Bootstrap File -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    
+    
+   
+  <!-- JQuery -->
+  <script src="https://code.jquery.com/jquery.js"></script>
+     
+  <style>
+  /* .ground {
+      background: #621817;
+  } */
+
+  /* .jumbotron {
+      background: #56514b;
+      color: whitesmoke;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      font-size: 300%;
+  } */
+
+  .question {
+    color: black
+  }
+
+  .timer {
+    color: black
+  }
+
+  </style>
+   
+</head>
+   
+<body class="ground">
+
+        <header>
+        <div class="navbar navbar-dark bg-dark box-shadow">
+            <div class="container d-flex justify-content-between">
+            <a  class="navbar-brand d-flex align-items-center">
+        
+                <strong class = "text-white">Kelsey J. Grover</strong>
+            </a>
+            <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
+                aria-controls="navbarHeader" aria-expanded="true" aria-label="Toggle navigation">
+            -->
+            <a href="/" style="text-decoration:none;"><span></span><strong class = "text-white">Home</strong> </a>
+                <!-- <span class="navbar-toggler-icon"></span> -->
+            </button>
+            </div>
+        </div>
+        </header>
+
+
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">Simple Trivia Game</h1>
+            <p class="lead text-muted">The trivia questions below are sourced from <a href = "https://opentdb.com" target="_blank">opentdb.com</a> 
+            The application itself is built with JavaScript, jQuery, Bootstrap, and Ajax</p>
+        </div>
+        </section>
+    
+  <div class="container">
+  <!-- <div class="rounded">
+  <div class="jumbotron">
+      
+    <h1 class="text-center">
+        <strong class="text-lg-left"><i>TRIVIA</i></strong>
+    </h1>
+    
+  </div>
+  </div> -->
+    
+   <hr>
+  
+    <h1 class="text-center">
+      <strong id = "time" class="timer">TIMER</strong>
+    </h1>
+   
+    <hr>
+
+    <h1 class="text-center">
+       <strong class="question">INSERT QUESTION HERE</strong>
+    </h1>
+
+    <hr> 
+    <h1 class="text-center">
+    <div class="btn-group-vertical">
+            <button type="button" class="btn btn-outline-secondary btn-lg button1" id="answerButton">Answer one</button>
+            <button type="button" class="btn btn-outline-secondary btn-lg button2" id="answerButton">Answer two</button>
+            <button type="button" class="btn btn-outline-secondary btn-lg button3" id="answerButton">Answer three</button>
+            <button type="button" class="btn btn-outline-secondary btn-lg button4" id="answerButton">Answer four</button>
+  </div>
+  </h1>
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+
+    
+var right = 0
+var wrong = 0 
+alert("This is a trivia game! See how many questions you can get right in 60 seconds! Press OK to start!")
+var number = 60;
+var intervalId;
+
+function run() {
+  intervalId = setInterval(decrement, 1000);
+}
+
+function decrement() {
+  number--;
+
+  $("#time").html("<h2>" + number + "</h2>");
+
+   if (number === 0) {
+     stop();
+     alert("Number of correct guesses "+right+". Number of wrong guesses: "+wrong);
+     location.reload()
+  }
+}
+
+function stop() {
+
+clearInterval(intervalId);
+}
+
+run();
+
+$(".jumbotron").click(function() {
+   console.log(number)
+   }) 
+ 
+function fixer(string) {
+  var fixed = string.replace(/&quot;/g, "\"");
+  var fixedTwo = fixed.replace(/&#039;/g, "\'")
+  return fixedTwo
+}
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+  return array;
+}
+
+var queryURL = "https://opentdb.com/api.php?amount=50&difficulty=medium&type=multiple";
+
+$.ajax({
+  url: queryURL,
+  method: "GET"
+}).then(function(response) {
+  console.log(response);
+
+    var i=0;
+    var newQuestion =response.results[i].question;
+    var question = $(".question").text(fixer(newQuestion));
+    var button1 = $(".button1");
+    var button2 = $(".button2");
+    var button3 = $(".button3");
+    var button4 = $(".button4");
+    var buttonArray = [button1, button2, button3, button4];
+    var answer1 = response.results[i].correct_answer;
+    var answer2 = response.results[i].incorrect_answers[0];
+    var answer3 = response.results[i].incorrect_answers[1];
+    var answer4 = response.results[i].incorrect_answers[2];
+    var answerArray = [answer1, answer2, answer3, answer4];
+    var answerArrayShuffle = shuffle(answerArray)
+
+    button1.text(fixer(answerArrayShuffle[0]))
+    button2.text(fixer(answerArrayShuffle[1]))
+    button3.text(fixer(answerArrayShuffle[2]))
+    button4.text(fixer(answerArrayShuffle[3]))
+
+    $("button").click(function() {
+
+    var correctAnswer = response.results[i].correct_answer;
+    var d = $(this).text();      
+    console.log("this is the user answer: "+d)
+    console.log("this is the correct answer: "+correctAnswer)
+
+    if (d == correctAnswer) {
+      right = right+1;
+      i++
+      var newQuestion =response.results[i].question;
+      var question = $(".question").text(fixer(newQuestion));
+      var answer1 = response.results[i].correct_answer;
+      var answer2 = response.results[i].incorrect_answers[0];
+      var answer3 = response.results[i].incorrect_answers[1];
+      var answer4 = response.results[i].incorrect_answers[2];
+      var answerArray = [answer1, answer2, answer3, answer4];
+      var answerArrayShuffle = shuffle(answerArray)
+
+      button1.text(fixer(answerArrayShuffle[0]))
+      button2.text(fixer(answerArrayShuffle[1]))
+      button3.text(fixer(answerArrayShuffle[2]))
+      button4.text(fixer(answerArrayShuffle[3]))
+      console.log(i)
+    }
+
+    else if (d !== correctAnswer) { 
+      wrong = wrong+1;
+      i++
+      var newQuestion =response.results[i].question;
+      var question = $(".question").text(fixer(newQuestion));
+      var answer1 = response.results[i].correct_answer;
+      var answer2 = response.results[i].incorrect_answers[0];
+      var answer3 = response.results[i].incorrect_answers[1];
+      var answer4 = response.results[i].incorrect_answers[2];
+      var answerArray = [answer1, answer2, answer3, answer4];
+      var answerArrayShuffle = shuffle(answerArray)
+
+      button1.text(fixer(answerArrayShuffle[0]))
+      button2.text(fixer(answerArrayShuffle[1]))
+      button3.text(fixer(answerArrayShuffle[2]))
+      button4.text(fixer(answerArrayShuffle[3]))
+      console.log(i)    
+    }
+  }); 
+})
+</script>
+
+</body>
+</html>
